@@ -2,7 +2,8 @@ package onesignal
 
 type Language string
 
-const ESLang Language = "es"
-const ENLang Language = "en"
+const ES Language = "es"
+const EN Language = "en"
 
 // TODO: Add more languages
+
