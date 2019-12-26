@@ -1,7 +1,6 @@
 package dmt
 
 import (
-	"errors"
 	"fmt"
 	"time"
 
@@ -37,6 +36,7 @@ func (e *Engine) registerNewTask(task Task) error {
 			}
 		}
 	}
+
 	return fmt.Errorf("channel '%s' not register on dmt", task.Channel)
 }
 
