@@ -46,17 +46,45 @@ func (c *Channel) AddTask(task dmt.Task) error {
 		return errors.New("invalid task for this channel")
 	}
 
-	if task.Type == "send-email" {
+	if task.Type == SendEmailTask {
 		d, err := json.Marshal(task.Params)
 		if err != nil {
 			return err
 		}
+
 		sendEmail := &SendEmail{}
 		if err = json.Unmarshal(d, sendEmail); err != nil {
 			return err
 		}
 
 		sendEmail.dialer = c.dialer
+
+		if sendEmail.ContentType == "" {
+			sendEmail.ContentType = "text/plain"
+		}
+
+		if c.works == nil {
+			c.works = []dmt.Work{}
+		}
+
+		c.works = append(c.works, sendEmail)
+		c.onNewWork(len(c.works) - 1)
+	} else if task.Type == SendEmailWithAttachTask {
+		d, err := json.Marshal(task.Params)
+		if err != nil {
+			return err
+		}
+
+		sendEmail := &SendEmailWithAttach{}
+		if err = json.Unmarshal(d, sendEmail); err != nil {
+			return err
+		}
+
+		sendEmail.dialer = c.dialer
+
+		if sendEmail.ContentType == "" {
+			sendEmail.ContentType = "text/plain"
+		}
 
 		if c.works == nil {
 			c.works = []dmt.Work{}

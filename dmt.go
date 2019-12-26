@@ -7,10 +7,10 @@ type WorkType string
 type WorkState int
 
 const (
-	WORK_CREATED WorkState = iota
-	WORK_SENT
+	WorkCreated WorkState = iota
+	WorkSent
 	WorkPending
-	WORK_RETRYING
+	WorkRetrying
 	WorkDone
 )
 
