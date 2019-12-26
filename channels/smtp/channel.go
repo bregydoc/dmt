@@ -1,4 +1,4 @@
-package onesignal
+package smtp
 
 import (
 	"encoding/json"
@@ -6,16 +6,17 @@ import (
 	"fmt"
 
 	"github.com/bregydoc/dmt"
+	"gopkg.in/gomail.v2"
 )
 
 type Channel struct {
-	AppID       string
-	APIKey      string
+	dialer *gomail.Dialer
 	works       []dmt.Work
 	subscribers []func([]dmt.Work)
 }
 
-const ChannelName = "one-signal"
+const ChannelName = "smtp"
+
 
 func (c *Channel) propagateWorksChangeState() {
 	for _, s := range c.subscribers {
@@ -35,6 +36,7 @@ func (c *Channel) onNewWork(index int) {
 	go c.executeTask(index)
 }
 
+
 func (c *Channel) Name() dmt.ChannelName {
 	return ChannelName
 }
@@ -44,37 +46,28 @@ func (c *Channel) AddTask(task dmt.Task) error {
 		return errors.New("invalid task for this channel")
 	}
 
-	if c.works == nil {
-		c.works = []dmt.Work{}
-	}
-
-	if task.Type == "push-notification" {
-		d, err := json.Marshal(task.Params["contents"])
+	if task.Type == "send-email" {
+		d, err := json.Marshal(task.Params)
 		if err != nil {
 			return err
 		}
-
-		contents := map[Language]string{}
-		if err = json.Unmarshal(d, &contents); err != nil {
+		sendEmail := &SendEmail{}
+		if err = json.Unmarshal(d, sendEmail); err != nil {
 			return err
 		}
 
-		push := &PushNotification{
-			appID:    c.AppID,
-			apiKey:   c.APIKey,
-			done:     false,
-			Contents: contents,
-		}
-		c.works = append(c.works, push)
-		c.onNewWork(len(c.works) - 1)
-	} else if task.Type == "email" {
+		sendEmail.dialer = c.dialer
 
+		if c.works == nil {
+			c.works = []dmt.Work{}
+		}
+
+		c.works = append(c.works, sendEmail)
+		c.onNewWork(len(c.works) - 1)
 	} else {
 		return errors.New("invalid task type")
 	}
-
 	return nil
-
 }
 
 func (c *Channel) FlushAll() error {
@@ -91,3 +84,6 @@ func (c *Channel) Observe(hook func([]dmt.Work)) error {
 
 	return nil
 }
+
+
+
