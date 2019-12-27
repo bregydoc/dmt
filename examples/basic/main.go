@@ -14,5 +14,3 @@ func main() {
 
 	fmt.Println(engine.StartedAt)
 }
-
-
