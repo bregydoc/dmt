@@ -7,13 +7,12 @@ import (
 
 	"github.com/bregydoc/dmt"
 	"github.com/sfreiberg/gotwilio"
-
 )
 
 type Channel struct {
-	client *gotwilio.Twilio
-	works       []dmt.Work
-	subscribers []func([]dmt.Work)
+	client            *gotwilio.Twilio
+	works             []dmt.Work
+	subscribers       []func([]dmt.Work)
 	defaultFromNumber string
 }
 
@@ -88,5 +87,3 @@ func (c *Channel) Observe(hook func([]dmt.Work)) error {
 
 	return nil
 }
-
-

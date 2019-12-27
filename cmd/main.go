@@ -1,5 +1,7 @@
 package main
 
+import "github.com/bregydoc/dmt"
+
 func main() {
 	a := make(chan bool, 1)
 	// oneSignalChannel, err := onesignal.NewChannel(
@@ -72,7 +74,6 @@ func main() {
 
 	// twChannel, err := twilio.NewChannel(
 
-	
 	// 	"+19382220921",
 	// )
 	// if err != nil {
@@ -98,5 +99,7 @@ func main() {
 	// 	panic(err)
 	// }
 
-	<- a
+
+
+	<-a
 }

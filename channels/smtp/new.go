@@ -8,7 +8,7 @@ import (
 
 func NewChannel(host string, port int, username, password string) (*Channel, error) {
 	ch := &Channel{
-		dialer: gomail.NewDialer(host, port,username, password),
+		dialer: gomail.NewDialer(host, port, username, password),
 	}
 
 	ch.dialer.TLSConfig = &tls.Config{InsecureSkipVerify: true}

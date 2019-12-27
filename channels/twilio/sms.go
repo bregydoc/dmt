@@ -9,15 +9,14 @@ import (
 )
 
 type SendSMS struct {
-	done bool
+	done          bool
 	retryingCount uint8
-	client *gotwilio.Twilio
-	defaultFrom string
-	From string `json:"from"`
-	To []string `json:"to"`
-	Content string `json:"content"`
+	client        *gotwilio.Twilio
+	defaultFrom   string
+	From          string   `json:"from"`
+	To            []string `json:"to"`
+	Content       string   `json:"content"`
 }
-
 
 func (s *SendSMS) Type() dmt.WorkType {
 	return SendSMSTask
@@ -83,5 +82,5 @@ func (s *SendSMS) ExecuteTask() error {
 }
 
 func (s *SendSMS) IsDone() bool {
- 	return s.done
+	return s.done
 }

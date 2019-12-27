@@ -10,13 +10,12 @@ import (
 )
 
 type Channel struct {
-	dialer *gomail.Dialer
+	dialer      *gomail.Dialer
 	works       []dmt.Work
 	subscribers []func([]dmt.Work)
 }
 
 const ChannelName = "smtp"
-
 
 func (c *Channel) propagateWorksChangeState() {
 	for _, s := range c.subscribers {
@@ -35,7 +34,6 @@ func (c *Channel) onNewWork(index int) {
 	c.propagateWorksChangeState()
 	go c.executeTask(index)
 }
-
 
 func (c *Channel) Name() dmt.ChannelName {
 	return ChannelName
@@ -112,6 +110,3 @@ func (c *Channel) Observe(hook func([]dmt.Work)) error {
 
 	return nil
 }
-
-
-

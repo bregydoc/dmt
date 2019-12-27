@@ -1,0 +1,19 @@
+rest:
+  port: 8888
+  host: "0.0.0.0"
+  auth:
+    - type: "basic"
+      users:
+        admin: admin
+channels:
+  - name: "smtp"
+    config:
+      host: "s3.mailjet.net"
+      port: 465
+      username: "xxx"
+      password: "yyy"
+  - name: "twilio"
+    config:
+      accountSID: "abc"
+      authToken: "def"
+      defaultFromNumber: "+19382220921"

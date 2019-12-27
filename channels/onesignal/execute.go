@@ -12,9 +12,9 @@ import (
 )
 
 type PushNotification struct {
-	appID  string
-	apiKey string
-	done   bool
+	appID    string
+	apiKey   string
+	done     bool
 	Contents map[Language]string
 }
 
@@ -43,14 +43,14 @@ func (e *PushNotification) ExecuteTask() error {
 
 	contents := string(c)
 
-	body := strings.NewReader(`{"app_id": "` + e.appID + `", "contents": ` + contents + `, "included_segments": `+ iSeg +`}`)
+	body := strings.NewReader(`{"app_id": "` + e.appID + `", "contents": ` + contents + `, "included_segments": ` + iSeg + `}`)
 
 	req, err := http.NewRequest(http.MethodPost, notificationsAPI, body)
 	if err != nil {
 		return err
 	}
 
-	req.Header.Set("Authorization", "Basic " + e.apiKey)
+	req.Header.Set("Authorization", "Basic "+e.apiKey)
 	req.Header.Set("Content-Type", "application/json; charset=utf-8")
 
 	res, err := http.DefaultClient.Do(req)
@@ -70,5 +70,3 @@ func (e *PushNotification) ExecuteTask() error {
 func (e *PushNotification) IsDone() bool {
 	return e.done
 }
-
-

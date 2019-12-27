@@ -6,4 +6,3 @@ const ES Language = "es"
 const EN Language = "en"
 
 // TODO: Add more languages
-

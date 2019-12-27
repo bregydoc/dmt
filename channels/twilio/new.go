@@ -12,9 +12,9 @@ func NewChannel(accountSID, authToken string, defaultFromNumber ...string) (*Cha
 	}
 
 	return &Channel{
-		client:      gotwilio.NewTwilioClient(accountSID, authToken),
-		works:       []dmt.Work{},
-		subscribers: []func([]dmt.Work){},
+		client:            gotwilio.NewTwilioClient(accountSID, authToken),
+		works:             []dmt.Work{},
+		subscribers:       []func([]dmt.Work){},
 		defaultFromNumber: fromNumber,
 	}, nil
 }

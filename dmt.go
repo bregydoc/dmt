@@ -21,17 +21,15 @@ type Work interface {
 	IsDone() bool
 }
 
-
 type WorkerLife struct {
-	OneTime bool
+	OneTime   bool
 	PulseEach time.Duration
-	StartAt time.Time
-	EndAt time.Time
-	Done bool
+	StartAt   time.Time
+	EndAt     time.Time
+	Done      bool
 }
 
 type Worker struct {
 	Work Work
 	life WorkerLife
 }
-

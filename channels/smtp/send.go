@@ -9,7 +9,7 @@ import (
 
 type SendEmail struct {
 	dialer      *gomail.Dialer
-	done bool
+	done        bool
 	From        Email   `json:"from"`
 	To          []Email `json:"to"`
 	ContentType string  `json:"content_type"`

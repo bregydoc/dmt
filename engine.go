@@ -9,12 +9,13 @@ import (
 
 type Engine struct {
 	StartedAt time.Time
-	Channels []Channel
+	channels  []Channel
+	Config    *Config
 }
 
 func (e *Engine) registerNewChannel(channel Channel) error {
-	if e.Channels == nil {
-		e.Channels = []Channel{}
+	if e.channels == nil {
+		e.channels = []Channel{}
 	}
 
 	log.Infof("channel '%s'registered", channel.Name())
@@ -23,13 +24,13 @@ func (e *Engine) registerNewChannel(channel Channel) error {
 		return err
 	}
 
-	e.Channels = append(e.Channels, channel)
+	e.channels = append(e.channels, channel)
 
 	return nil
 }
 
 func (e *Engine) registerNewTask(task Task) error {
-	for _, ch := range e.Channels {
+	for _, ch := range e.channels {
 		if ch.Name() == task.Channel {
 			if err := ch.AddTask(task); err != nil {
 				return err
@@ -39,4 +40,3 @@ func (e *Engine) registerNewTask(task Task) error {
 
 	return fmt.Errorf("channel '%s' not register on dmt", task.Channel)
 }
-
