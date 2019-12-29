@@ -6,6 +6,8 @@ import (
 	"fmt"
 
 	"github.com/bregydoc/dmt"
+	"github.com/davecgh/go-spew/spew"
+	log "github.com/sirupsen/logrus"
 	"gopkg.in/gomail.v2"
 )
 
@@ -44,14 +46,19 @@ func (c *Channel) AddTask(task dmt.Task) error {
 		return errors.New("invalid task for this channel")
 	}
 
+	log.Info(task)
+
 	if task.Type == SendEmailTask {
 		d, err := json.Marshal(task.Params)
 		if err != nil {
 			return err
 		}
 
+		log.Info(string(d))
 		sendEmail := &SendEmail{}
+
 		if err = json.Unmarshal(d, sendEmail); err != nil {
+			log.Error(err)
 			return err
 		}
 
@@ -60,6 +67,8 @@ func (c *Channel) AddTask(task dmt.Task) error {
 		if sendEmail.ContentType == "" {
 			sendEmail.ContentType = "text/plain"
 		}
+
+		spew.Dump(sendEmail)
 
 		if c.works == nil {
 			c.works = []dmt.Work{}

@@ -11,6 +11,7 @@ type Engine struct {
 	StartedAt time.Time
 	channels  []Channel
 	Config    *Config
+	rest *API
 }
 
 func (e *Engine) registerNewChannel(channel Channel) error {
