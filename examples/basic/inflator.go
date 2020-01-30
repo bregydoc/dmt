@@ -1,6 +1,6 @@
 package main
 
-// func inflateChannelFromConfig(config dmt.ChannelConfig) (dmt.Channel, error) {
+// func inflateChannelFromConfig(config dmtjs.ChannelConfig) (dmtjs.Channel, error) {
 // 	switch config.Name {
 // 	case onesignal.ChannelName:
 // 		return onesignal.NewChannelFromMap(config.Config)

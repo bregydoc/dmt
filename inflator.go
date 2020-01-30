@@ -6,9 +6,9 @@ package dmt
 // import (
 // 	"errors"
 //
-// 	"github.com/bregydoc/dmt/channels/onesignal"
-// 	"github.com/bregydoc/dmt/channels/smtp"
-// 	"github.com/bregydoc/dmt/channels/twilio"
+// 	"github.com/bregydoc/dmtjs/channels/onesignal"
+// 	"github.com/bregydoc/dmtjs/channels/smtp"
+// 	"github.com/bregydoc/dmtjs/channels/twilio"
 // )
 //
 // func inflateChannelFromConfig(config ChannelConfig) (Channel, error) {

@@ -21,4 +21,3 @@ func inflateChannelFromConfig(config dmt.ChannelConfig) (dmt.Channel, error) {
 		return nil, errors.New("invalid channel name")
 	}
 }
-

@@ -17,7 +17,6 @@ func NewChannel(host string, port int, username, password string) (*Channel, err
 	return ch, nil
 }
 
-
 func NewChannelFromMap(params map[string]interface{}) (*Channel, error) {
 	host, ok := params["host"].(string)
 	if !ok {

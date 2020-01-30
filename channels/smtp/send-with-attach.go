@@ -64,7 +64,7 @@ func (s *SendEmailWithAttach) ExecuteTask() error {
 	m.SetBody(s.ContentType, string(s.Body))
 
 	for name, data := range s.Attachments {
-		f, err := ioutil.TempFile(os.TempDir(), "dmt")
+		f, err := ioutil.TempFile(os.TempDir(), "dmtjs")
 		if err != nil {
 			return err
 		}

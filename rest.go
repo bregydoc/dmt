@@ -10,21 +10,24 @@ import (
 )
 
 type API struct {
-	port int
-	host string
+	port   int
+	host   string
 	engine *gin.Engine
-	dmt *Engine
 }
 
 type ChannelStatus struct {
-	Name string `json:"name"`
+	Name         string    `json:"name"`
 	LastActivity time.Time `json:"last_activity"`
 }
 
-func (api *API) run() error {
+func (api *API) run(dmt *Engine) error {
+	// api.engine.Use(gin.BasicAuth(gin.Accounts{
+	//
+	// }))
+	// TODO
 	api.engine.GET("/status", func(c *gin.Context) {
 		states := make([]ChannelStatus, 0)
-		for _, ch := range api.dmt.channels {
+		for _, ch := range dmt.channels {
 
 			states = append(states, ChannelStatus{
 				Name:         string(ch.Name()),
@@ -48,7 +51,7 @@ func (api *API) run() error {
 
 		spew.Dump(task)
 
-		if err := api.dmt.registerNewTask(task); err != nil {
+		if err := dmt.registerNewTask(task); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
 			})
@@ -57,7 +60,7 @@ func (api *API) run() error {
 
 		c.JSON(http.StatusOK, gin.H{
 			"message": "ok, your message has been delivered",
-			"task": task,
+			"task":    task,
 		})
 	})
 

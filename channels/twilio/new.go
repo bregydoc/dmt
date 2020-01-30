@@ -21,7 +21,6 @@ func NewChannel(accountSID, authToken string, defaultFromNumber ...string) (*Cha
 	}, nil
 }
 
-
 func NewChannelFromMap(params map[string]interface{}) (*Channel, error) {
 	accountSID, ok := params["accountSID"].(string)
 	if !ok {

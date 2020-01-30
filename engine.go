@@ -11,7 +11,7 @@ type Engine struct {
 	StartedAt time.Time
 	channels  []Channel
 	Config    *Config
-	rest *API
+	rest      *API
 }
 
 func (e *Engine) registerNewChannel(channel Channel) error {
@@ -39,5 +39,5 @@ func (e *Engine) registerNewTask(task Task) error {
 		}
 	}
 
-	return fmt.Errorf("channel '%s' not register on dmt", task.Channel)
+	return fmt.Errorf("channel '%s' not register on dmtjs", task.Channel)
 }

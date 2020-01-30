@@ -17,12 +17,11 @@ func NewEngine(configFilename string) (*Engine, error) {
 	engine.Config = conf
 	engine.channels = []Channel{}
 	engine.rest = &API{
-		dmt: engine,
+		dmt:    engine,
 		engine: gin.Default(),
-		host: "0.0.0.0",
-		port: 8080,
+		host:   "0.0.0.0",
+		port:   8080,
 	}
-
 
 	// for _, ch := range conf.Channels {
 	// 	channel, err := inflateChannelFromConfig(ch)
